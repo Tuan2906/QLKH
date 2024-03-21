@@ -27,12 +27,13 @@ class Course_admin(admin.ModelAdmin):
     readonly_fields = ['avatar']
     form = CourseForm
 
-
     def avatar(self, course):
         if course.image:
             return mark_safe(f"<img width='200' src='/static/{course.image.name}' />")
 
 
 admin.site.register(Catatory)
+admin.site.register(Lessons)
+admin.site.register(Tag)
 
 admin.site.register(Course, Course_admin)

@@ -3,9 +3,10 @@ from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
 from cloudinary.models import CloudinaryField
 
+
 # Create your models here.
 class User(AbstractUser):
-    pass
+    avatar= CloudinaryField(null=True)
 
 
 class Catatory(models.Model):
@@ -27,7 +28,7 @@ class BaseMode(models.Model):
 class Course(BaseMode):
     name = models.CharField(max_length=100)
     descriptions = RichTextField(null=True)
-    image = CloudinaryField()
+    image = CloudinaryField(null=True)
     category = models.ForeignKey(Catatory, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -44,6 +45,26 @@ class Tag(BaseMode):
 class Lessons(BaseMode):
     subject = models.CharField(max_length=100)
     content = RichTextField(null=True)
-    image = CloudinaryField()
+    image = CloudinaryField(null=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag)
+
+
+class Interaction(BaseMode):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lessons, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user_id} - {self.lesson_id}'
+
+    class Meta:
+        abstract = True
+
+
+class Comment(Interaction):
+    content = models.CharField(max_length=255)
+
+
+class Like(Interaction):
+    class Meta:
+        unique_together = ('user', 'lesson')

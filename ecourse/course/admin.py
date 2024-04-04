@@ -35,5 +35,6 @@ class Course_admin(admin.ModelAdmin):
 admin.site.register(Catatory)
 admin.site.register(Lessons)
 admin.site.register(Tag)
-
+admin.site.register(Comment)
+admin.site.register(User)
 admin.site.register(Course, Course_admin)

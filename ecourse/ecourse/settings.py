@@ -35,6 +35,7 @@ CKEDITOR_UPLOAD_PATH = "ckeditor/images"
 ALLOWED_HOSTS = []
 MEDIA_ROOT = '%s/course/static/' % BASE_DIR
 import pymysql
+
 pymysql.install_as_MySQLdb()
 # Application definition
 AUTH_USER_MODEL = 'course.User'
@@ -49,8 +50,17 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'rest_framework',
-    'drf_yasg'
+    'drf_yasg',
+    'oauth2_provider'
 ]
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
+Client_id='XFlhD3rZzVsLFIHdy65OigZrcNRKAZDNGhw6ippn'
+Client_secret='crbXCaXZUoNWLut21nRHBpug2fyTZcHI7HPIErZPOQUXj3xnR0Yv9qowEvV1rQvogFlA5cjKN3JKfSLg3vl5HkY47GOnPYL9HC1puZUvFBSPklKPQ39kS0SdRb8RhQSo'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,7 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecourse.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -95,7 +104,6 @@ DATABASES = {
         'HOST': ''  # mặc định localhost
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -115,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -126,7 +133,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

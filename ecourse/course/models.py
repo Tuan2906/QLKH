@@ -6,7 +6,7 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class User(AbstractUser):
-    avatar= CloudinaryField(null=True)
+    avatar = CloudinaryField(null=True)
 
 
 class Catatory(models.Model):
@@ -49,6 +49,9 @@ class Lessons(BaseMode):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag)
 
+    def __str__(self):
+        return self.subject
+
 
 class Interaction(BaseMode):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -64,7 +67,17 @@ class Interaction(BaseMode):
 class Comment(Interaction):
     content = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.content
+
 
 class Like(Interaction):
+    class Meta:
+        unique_together = ('user', 'lesson')
+
+
+class Rating(Interaction):
+    rate = models.IntegerField
+
     class Meta:
         unique_together = ('user', 'lesson')

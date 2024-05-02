@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "EcoureAppReactNative",
+    "slug": "EcoureAppReactNative",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "EcoureAppReactNative"
+}
